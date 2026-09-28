@@ -180,6 +180,7 @@
       padding: 12px 15px;
       text-align: left;
       font-size: 0.95rem;
+      word-break: break-word; /* Mengelakkan pautan panjang merosakkan susun atur */
     }
 
     .result-table tr:nth-child(even) {
@@ -197,6 +198,21 @@
       border-bottom: 1px solid var(--border-color);
       color: var(--text-dark);
       font-weight: 500;
+    }
+
+    /* Kemas kini gaya link supaya jelas & profesional */
+    .result-table td a {
+      color: var(--secondary-blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .result-table td a:hover {
+      color: var(--accent-red);
+      text-decoration: underline;
     }
 
     /* Status Messages */
@@ -292,8 +308,8 @@
   </div>
 
   <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
-    const SCRIPT_URL = https://script.google.com/macros/s/AKfycbx2McDL6T1aL-mPeVO9b6k6m-tgQ5p2dj5JdU-265stIypG5Yb2FGPC_tdjEVsCfHc/exec;
+    // Dibetulkan: Menambah tanda petik ("") pada URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2McDL6T1aL-mPeVO9b6k6m-tgQ5p2dj5JdU-265stIypG5Yb2FGPC_tdjEVsCfHc/exec";
 
     document.getElementById('searchForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -323,9 +339,19 @@
             for (const [key, value] of Object.entries(studentData)) {
               if (key.trim() !== "") { // Abaikan kolum kosong
                 const row = document.createElement('tr');
+                
+                let formattedValue = value;
+
+                // Memeriksa sama ada data mengandungi pautan web (http / https)
+                if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
+                  formattedValue = `<a href="${value}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Laporan</a>`;
+                } else if (value === "") {
+                  formattedValue = "-";
+                }
+
                 row.innerHTML = `
                   <th>${key}</th>
-                  <td>${value !== "" ? value : "-"}</td>
+                  <td>${formattedValue}</td>
                 `;
                 resultBody.appendChild(row);
               }
