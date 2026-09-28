@@ -5,313 +5,363 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Semakan Markah PB</title>
   <!-- Google Fonts & FontAwesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
-      --primary-blue: #0A369D;
-      --secondary-blue: #0056B3;
-      --light-blue: #EFF6FF;
-      --accent-red: #D90429;
-      --dark-red: #9B001C;
-      --bg-gradient: linear-gradient(135deg, #0A369D 0%, #1E1B4B 100%);
-      --pure-white: #FFFFFF;
-      --off-white: #F8FAFC;
-      --text-dark: #0F172A;
+      --navy-primary: #0F4C9C;
+      --navy-dark: #0B3C7D;
+      --navy-header: #1557A6;
+      --red-accent: #E11D48;
+      --bg-main: #EEF2F6;
+      --card-bg: #FFFFFF;
+      --text-dark: #1E293B;
       --text-muted: #64748B;
       --border-color: #E2E8F0;
+      --light-blue-bg: #EBF3FC;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
-      background: var(--bg-gradient);
+      background-color: var(--bg-main);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px 15px;
-    }
-
-    .container {
-      background: var(--pure-white);
-      width: 100%;
-      max-width: 850px; /* Diluaskan supaya tidak terlalu memanjang */
-      border-radius: 20px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-      overflow: hidden;
-      border-top: 6px solid var(--accent-red);
-    }
-
-    .header {
-      background: var(--primary-blue);
-      color: var(--pure-white);
-      padding: 35px 25px;
-      text-align: center;
-    }
-
-    .header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .header p {
-      font-size: 0.95rem;
-      color: #93C5FD;
-      font-weight: 400;
-    }
-
-    .search-body {
-      padding: 30px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
       color: var(--text-dark);
-      margin-bottom: 8px;
+      padding-bottom: 40px;
     }
 
-    .input-wrapper {
-      position: relative;
+    /* Top Navbar Header */
+    .top-navbar {
+      background-color: var(--navy-header);
+      color: #FFFFFF;
+      padding: 16px 24px;
       display: flex;
       align-items: center;
+      gap: 14px;
+      border-bottom: 4px solid var(--red-accent);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    .input-wrapper i {
-      position: absolute;
-      left: 16px;
-      color: var(--text-muted);
-      font-size: 1.1rem;
+    .top-navbar i {
+      font-size: 2.2rem;
     }
 
-    .input-wrapper input {
-      width: 100%;
-      padding: 14px 14px 14px 48px;
-      border: 2px solid var(--border-color);
-      border-radius: 10px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .top-navbar .nav-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.2;
     }
 
-    .input-wrapper input:focus {
-      outline: none;
-      border-color: var(--secondary-blue);
-      box-shadow: 0 0 0 4px rgba(10, 54, 157, 0.1);
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--accent-red);
-      color: var(--pure-white);
-      border: none;
-      padding: 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 12px rgba(217, 4, 41, 0.3);
-    }
-
-    .btn-submit:hover {
-      background: var(--dark-red);
-      transform: translateY(-1px);
-    }
-
-    /* Result Dashboard Styling */
-    .result-container {
-      margin-top: 30px;
-      display: none;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-title {
-      font-size: 1rem;
-      color: var(--primary-blue);
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 2px solid var(--light-blue);
-      padding-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    /* Grid Maklumat Pelajar */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-      margin-bottom: 25px;
-    }
-
-    .info-card {
-      background: var(--off-white);
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-    }
-
-    .info-card .label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .info-card .val {
-      font-size: 0.95rem;
-      color: var(--text-dark);
-      font-weight: 600;
-    }
-
-    /* Grid Markah PB */
-    .marks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .mark-card {
-      background: var(--pure-white);
-      border: 2px solid var(--light-blue);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
-    }
-
-    .mark-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--secondary-blue);
-    }
-
-    .mark-card .mark-label {
+    .top-navbar .nav-text p {
       font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .mark-card .mark-val {
-      font-size: 1.5rem;
-      color: var(--primary-blue);
-      font-weight: 700;
-    }
-
-    /* Seksyen Laporan PDF */
-    .pdf-section {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .pdf-button {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--off-white);
-      border: 1px solid var(--border-color);
-      padding: 12px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-    }
-
-    .pdf-button:hover {
-      background: #FEF2F2;
-      border-color: var(--accent-red);
-      color: var(--accent-red);
-    }
-
-    .pdf-button .pdf-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .pdf-button i.pdf-icon {
-      font-size: 1.5rem;
-      color: var(--accent-red);
-    }
-
-    .pdf-button .btn-tag {
-      background: var(--accent-red);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pdf-button:hover .btn-tag {
-      background: var(--dark-red);
-    }
-
-    /* Status Messages */
-    .message-box {
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      display: none;
-      margin-top: 15px;
-      text-align: center;
+      opacity: 0.85;
       font-weight: 500;
     }
 
-    .message-box.error {
-      background: #FEE2E2;
-      color: #991B1B;
-      border: 1px solid #FCA5A5;
+    .main-wrapper {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 16px;
     }
 
+    /* Card Box Standard */
+    .card-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    /* Section Search Box */
+    .search-card {
+      padding: 20px 24px;
+      border-left: 5px solid var(--red-accent);
+    }
+
+    .search-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .input-group {
+      position: relative;
+      flex: 1;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-group input:focus {
+      border-color: var(--navy-primary);
+      box-shadow: 0 0 0 3px rgba(15, 76, 156, 0.1);
+    }
+
+    .btn-search {
+      background-color: var(--navy-primary);
+      color: white;
+      border: none;
+      padding: 0 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-search:hover {
+      background-color: var(--navy-dark);
+    }
+
+    /* Result Wrapper */
+    #resultWrapper {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Info Pelajar Card */
+    .info-card {
+      padding: 20px 24px;
+      border-left: 5px solid var(--navy-primary);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .info-item .info-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .info-item .info-value {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      line-height: 1.3;
+    }
+
+    /* Main Summary Marks Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    .summary-card.blue-card {
+      border-top: 4px solid var(--navy-primary);
+    }
+
+    .summary-card.red-card {
+      border-top: 4px solid var(--red-accent);
+    }
+
+    .summary-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .summary-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
+    .summary-card.blue-card .summary-value { color: var(--navy-primary); }
+    .summary-card.red-card .summary-value { color: var(--red-accent); }
+
+    /* Table Perincian Markah */
+    .table-card {
+      overflow: hidden;
+    }
+
+    .table-header {
+      background-color: var(--navy-primary);
+      color: white;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .marks-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .marks-table th {
+      background-color: var(--light-blue-bg);
+      color: var(--navy-dark);
+      font-weight: 700;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .marks-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .marks-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-percent {
+      background-color: #E0F2FE;
+      color: #0369A1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: inline-block;
+    }
+
+    /* Section Laporan Tugasan (PDF) */
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy-primary);
+      margin: 24px 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .pdf-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .pdf-card:hover {
+      border-color: var(--navy-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .pdf-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pdf-icon-bg {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .pdf-icon-bg.red { background-color: #FFE4E6; color: #E11D48; }
+    .pdf-icon-bg.purple { background-color: #F3E8FF; color: #9333EA; }
+
+    .pdf-text h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .pdf-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .pdf-card i.fa-arrow-up-right-from-square {
+      color: var(--navy-primary);
+      font-size: 1rem;
+    }
+
+    /* Status & Loader */
     .loader {
       display: none;
       margin: 20px auto;
       border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent-red);
+      border-top: 4px solid var(--red-accent);
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      animation: spin 1s linear infinite;
+      width: 36px;
+      height: 36px;
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin {
@@ -319,80 +369,108 @@
       100% { transform: rotate(360deg); }
     }
 
-    .footer {
-      background: var(--off-white);
-      padding: 18px;
+    .error-msg {
+      display: none;
+      background: #FEE2E2;
+      color: #991B1B;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 15px;
       text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 600px) {
+      .search-form { flex-direction: column; }
+      .btn-search { width: 100%; padding: 12px; justify-content: center; }
+      .summary-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1><i class="fa-solid fa-graduation-cap"></i> Semakan Markah PB</h1>
-      <p>Sistem Portal Pentaksiran Berterusan Pelajar</p>
+  <!-- Top Navbar -->
+  <div class="top-navbar">
+    <i class="fa-solid fa-graduation-cap"></i>
+    <div class="nav-text">
+      <h1>Sistem Semakan Markah PB</h1>
+      <p>Penilaian Berterusan Pelajar</p>
     </div>
+  </div>
 
-    <!-- Content Body -->
-    <div class="search-body">
-      <form id="searchForm">
-        <div class="form-group">
-          <label for="noMatrik">Nombor Matrik Pelajar</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-id-card"></i>
-            <input type="text" id="noMatrik" placeholder="Masukkan No. Matrik (Cth: KVN123456)" required autocomplete="off">
-          </div>
+  <div class="main-wrapper">
+    
+    <!-- Box Carian -->
+    <div class="card-box search-card">
+      <div class="search-title">
+        <i class="fa-solid fa-credit-card"></i> Semakan Keputusan
+      </div>
+      <form class="search-form" id="searchForm">
+        <div class="input-group">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="noMatrik" placeholder="Masukkan No. Matrik (Contoh: MS2516118064)" required autocomplete="off">
         </div>
-        <button type="submit" class="btn-submit">
-          <i class="fa-solid fa-magnifying-glass"></i> Cari Keputusan
+        <button type="submit" class="btn-search">
+          <i class="fa-solid fa-magnifying-glass"></i> Cari Markah
         </button>
       </form>
-
-      <!-- Loader -->
+      
       <div class="loader" id="loader"></div>
+      <div class="error-msg" id="errorMessage"></div>
+    </div>
 
-      <!-- Error Message -->
-      <div class="message-box error" id="errorMessage"></div>
-
-      <!-- Results Display Dashboard -->
-      <div class="result-container" id="resultContainer">
-        
-        <!-- Seksyen 1: Maklumat Pelajar -->
-        <div class="section-title">
-          <i class="fa-solid fa-user-graduate"></i> Maklumat Pelajar
-        </div>
-        <div class="info-grid" id="studentInfoGrid">
-          <!-- Diisi secara dinamik -->
-        </div>
-
-        <!-- Seksyen 2: Markah PB -->
-        <div class="section-title">
-          <i class="fa-solid fa-chart-simple"></i> Komponen Markah PB
-        </div>
-        <div class="marks-grid" id="marksGrid">
-          <!-- Diisi secara dinamik -->
-        </div>
-
-        <!-- Seksyen 3: Dokumen & Laporan PDF -->
-        <div class="section-title" id="pdfSectionTitle" style="display: none;">
-          <i class="fa-solid fa-folder-open"></i> Laporan & Tugasan (PDF)
-        </div>
-        <div class="pdf-section" id="pdfSection">
-          <!-- Diisi secara dinamik -->
-        </div>
-
+    <!-- Dashboard Keputusan -->
+    <div id="resultWrapper">
+      
+      <!-- 1. Maklumat Pelajar -->
+      <div class="card-box info-card" id="studentInfoBox">
+        <!-- Diisi secara dinamik -->
       </div>
+
+      <!-- 2. Ringkasan PB & Total -->
+      <div class="summary-grid">
+        <div class="summary-card blue-card">
+          <div class="summary-title" id="pbLabel">Jumlah PB (40%)</div>
+          <div class="summary-value" id="pbVal">0.0%</div>
+        </div>
+        <div class="summary-card red-card">
+          <div class="summary-title" id="totalLabel">Jumlah Keseluruhan Total (60%)</div>
+          <div class="summary-value" id="totalVal">0.0%</div>
+        </div>
+      </div>
+
+      <!-- 3. Perincian Markah Penilaian Table -->
+      <div class="card-box table-card">
+        <div class="table-header">
+          <i class="fa-solid fa-list-check"></i> Perincian Markah Penilaian
+        </div>
+        <table class="marks-table">
+          <thead>
+            <tr>
+              <th>Komponen Penilaian</th>
+              <th>Markah Diperolehi</th>
+              <th>Peratusan (%)</th>
+            </tr>
+          </thead>
+          <tbody id="marksTableBody">
+            <!-- Diisi secara dinamik -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4. Laporan Tugasan PDF -->
+      <div id="pdfSectionWrapper" style="display: none;">
+        <div class="section-heading">
+          <i class="fa-solid fa-folder-closed"></i> Laporan Tugasan
+        </div>
+        <div class="reports-grid" id="reportsGrid">
+          <!-- Diisi secara dinamik -->
+        </div>
+      </div>
+
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      &copy; Hak Cipta Terpelihara - Sistem Semakan Markah PB
-    </div>
   </div>
 
   <script>
@@ -404,23 +482,22 @@
       const noMatrik = document.getElementById('noMatrik').value.trim();
       const loader = document.getElementById('loader');
       const errorMessage = document.getElementById('errorMessage');
-      const resultContainer = document.getElementById('resultContainer');
+      const resultWrapper = document.getElementById('resultWrapper');
       
-      const studentInfoGrid = document.getElementById('studentInfoGrid');
-      const marksGrid = document.getElementById('marksGrid');
-      const pdfSection = document.getElementById('pdfSection');
-      const pdfSectionTitle = document.getElementById('pdfSectionTitle');
+      const studentInfoBox = document.getElementById('studentInfoBox');
+      const marksTableBody = document.getElementById('marksTableBody');
+      const reportsGrid = document.getElementById('reportsGrid');
+      const pdfSectionWrapper = document.getElementById('pdfSectionWrapper');
 
-      // Reset Paparan
+      // Reset
       errorMessage.style.display = 'none';
-      resultContainer.style.display = 'none';
-      studentInfoGrid.innerHTML = '';
-      marksGrid.innerHTML = '';
-      pdfSection.innerHTML = '';
-      pdfSectionTitle.style.display = 'none';
+      resultWrapper.style.display = 'none';
+      studentInfoBox.innerHTML = '';
+      marksTableBody.innerHTML = '';
+      reportsGrid.innerHTML = '';
+      pdfSectionWrapper.style.display = 'none';
       loader.style.display = 'block';
 
-      // Panggilan API ke Google Apps Script
       fetch(`${SCRIPT_URL}?id=${encodeURIComponent(noMatrik)}`)
         .then(response => response.json())
         .then(data => {
@@ -434,60 +511,84 @@
               if (!key || key.trim() === "") continue;
 
               const valStr = String(value).trim();
+              const keyLower = key.toLowerCase();
               const isUrl = valStr.startsWith('http://') || valStr.startsWith('https://');
 
-              // 1. Jika data adalah LINK / URL (Laporan Assignment PDF)
-              if (isUrl) {
-                hasPdf = true;
-                const pdfCard = document.createElement('a');
-                pdfCard.className = 'pdf-button';
-                pdfCard.href = valStr;
-                pdfCard.target = '_blank';
-                pdfCard.rel = 'noopener noreferrer';
-                pdfCard.innerHTML = `
-                  <div class="pdf-info">
-                    <i class="fa-solid fa-file-pdf pdf-icon"></i>
-                    <span>${key}</span>
-                  </div>
-                  <span class="btn-tag"><i class="fa-solid fa-download"></i> Buka PDF</span>
-                `;
-                pdfSection.appendChild(pdfCard);
+              // A. Laporan Tugasan (PDF Link)
+              if (isUrl || keyLower.includes('laporan') || keyLower.includes('pdf')) {
+                if (isUrl) {
+                  hasPdf = true;
+                  const isGroup = keyLower.includes('kumpulan') || keyLower.includes('group');
+                  const iconClass = isGroup ? 'fa-users pdf-icon-bg purple' : 'fa-file-pdf pdf-icon-bg red';
+
+                  const pdfCard = document.createElement('a');
+                  pdfCard.className = 'pdf-card';
+                  pdfCard.href = valStr;
+                  pdfCard.target = '_blank';
+                  pdfCard.rel = 'noopener noreferrer';
+                  pdfCard.innerHTML = `
+                    <div class="pdf-info">
+                      <div class="${iconClass}">
+                        <i class="fa-solid ${isGroup ? 'fa-users' : 'fa-file-pdf'}"></i>
+                      </div>
+                      <div class="pdf-text">
+                        <h4>${key}</h4>
+                        <p>Klik untuk muat turun / buka dokumen</p>
+                      </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  `;
+                  reportsGrid.appendChild(pdfCard);
+                }
+              }
+              // B. Ringkasan Utama (40% / 60% / Total)
+              else if (keyLower.includes('jumlah pb') || keyLower.includes('pb (40%)')) {
+                document.getElementById('pbLabel').innerText = key;
+                document.getElementById('pbVal').innerText = valStr || '0.0%';
               } 
-              // 2. Jika data mengandungi perkataan Markah / % / Quiz / Test / PB
-              else if (
-                key.toLowerCase().includes('markah') || 
-                key.toLowerCase().includes('quiz') || 
-                key.toLowerCase().includes('test') || 
-                key.toLowerCase().includes('pb') ||
-                key.toLowerCase().includes('assignment') ||
-                key.toLowerCase().includes('jumlah') ||
-                !isNaN(valStr) && valStr !== ""
-              ) {
-                const markCard = document.createElement('div');
-                markCard.className = 'mark-card';
-                markCard.innerHTML = `
-                  <div class="mark-label">${key}</div>
-                  <div class="mark-val">${valStr !== "" ? valStr : "-"}</div>
+              else if (keyLower.includes('jumlah keseluruhan') || keyLower.includes('total (60%)') || keyLower.includes('keseluruhan')) {
+                document.getElementById('totalLabel').innerText = key;
+                document.getElementById('totalVal').innerText = valStr || '0.0%';
+              }
+              // C. Info Pelajar (Nama, No Matrik, Praktikum, Pensyarah)
+              else if (keyLower.includes('nama') || keyLower.includes('matrik') || keyLower.includes('praktikum') || keyLower.includes('pensyarah') || keyLower.includes('kelas')) {
+                const item = document.createElement('div');
+                item.className = 'info-item';
+                item.innerHTML = `
+                  <div class="info-label">${key}</div>
+                  <div class="info-value">${valStr !== "" ? valStr : "-"}</div>
                 `;
-                marksGrid.appendChild(markCard);
-              } 
-              // 3. Maklumat Am Pelajar (Nama, Matrik, IC, Kelas, dll)
+                studentInfoBox.appendChild(item);
+              }
+              // D. Perincian Markah dalam Jadual
               else {
-                const infoCard = document.createElement('div');
-                infoCard.className = 'info-card';
-                infoCard.innerHTML = `
-                  <div class="label">${key}</div>
-                  <div class="val">${valStr !== "" ? valStr : "-"}</div>
+                // Memisahkan markah jika format "43 / 45 (14.4%)" atau menggunakan baris biasa
+                const tr = document.createElement('tr');
+                
+                // Menyemak peratusan
+                let markObtained = valStr;
+                let percentage = "-";
+
+                if (valStr.includes('%')) {
+                  const parts = valStr.split(' ');
+                  percentage = parts.pop();
+                  markObtained = parts.join(' ');
+                }
+
+                tr.innerHTML = `
+                  <td>${key}</td>
+                  <td>${markObtained !== "" ? markObtained : "-"}</td>
+                  <td>${percentage !== "-" ? `<span class="badge-percent">${percentage}</span>` : "-"}</td>
                 `;
-                studentInfoGrid.appendChild(infoCard);
+                marksTableBody.appendChild(tr);
               }
             }
 
             if (hasPdf) {
-              pdfSectionTitle.style.display = 'flex';
+              pdfSectionWrapper.style.display = 'block';
             }
 
-            resultContainer.style.display = 'block';
+            resultWrapper.style.display = 'block';
           } else {
             errorMessage.innerText = data.message || 'No. Matrik tidak dijumpai dalam rekod.';
             errorMessage.style.display = 'block';
