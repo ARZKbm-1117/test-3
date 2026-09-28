@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Semakan Markah PB</title>
   <!-- Google Fonts & FontAwesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -42,7 +42,7 @@
     .container {
       background: var(--pure-white);
       width: 100%;
-      max-width: 850px; /* Diluaskan supaya tidak terlalu memanjang */
+      max-width: 850px;
       border-radius: 20px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       overflow: hidden;
@@ -153,10 +153,10 @@
     }
 
     .section-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--primary-blue);
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -168,7 +168,7 @@
     /* Grid Maklumat Pelajar */
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
       margin-bottom: 25px;
     }
@@ -194,39 +194,103 @@
       font-weight: 600;
     }
 
-    /* Grid Markah PB */
+    /* --- REKA BENTUK KOTAK HIGHLIGHT PB & TOTAL --- */
+    .highlight-marks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .highlight-card {
+      padding: 22px 20px;
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Kotak PB (40%) - Biru */
+    .highlight-card.pb-box {
+      background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 100%);
+      border-color: #BFDBFE;
+    }
+
+    .highlight-card.pb-box .hl-title {
+      color: var(--primary-blue);
+    }
+
+    .highlight-card.pb-box .hl-value {
+      color: var(--primary-blue);
+    }
+
+    /* Kotak TOTAL (60%) - Merah */
+    .highlight-card.total-box {
+      background: linear-gradient(145deg, #FFF1F2 0%, #FFE4E6 100%);
+      border-color: #FECDD3;
+    }
+
+    .highlight-card.total-box .hl-title {
+      color: var(--accent-red);
+    }
+
+    .highlight-card.total-box .hl-value {
+      color: var(--accent-red);
+    }
+
+    .hl-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .hl-value {
+      font-size: 2.3rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    /* Grid Markah Perincian Biasa */
     .marks-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
+      gap: 12px;
       margin-bottom: 25px;
     }
 
     .mark-card {
       background: var(--pure-white);
-      border: 2px solid var(--light-blue);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px;
+      padding: 14px;
       text-align: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
-    }
-
-    .mark-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--secondary-blue);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
     }
 
     .mark-card .mark-label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .mark-card .mark-val {
-      font-size: 1.5rem;
-      color: var(--primary-blue);
+      font-size: 1.25rem;
+      color: var(--text-dark);
       font-weight: 700;
     }
 
@@ -370,15 +434,30 @@
           <!-- Diisi secara dinamik -->
         </div>
 
-        <!-- Seksyen 2: Markah PB -->
+        <!-- Seksyen 2: Highlight Markah Utama (PB 40% & TOTAL 60%) -->
         <div class="section-title">
-          <i class="fa-solid fa-chart-simple"></i> Komponen Markah PB
+          <i class="fa-solid fa-trophy"></i> Ringkasan Keputusan Utama
+        </div>
+        <div class="highlight-marks-grid">
+          <div class="highlight-card pb-box">
+            <div class="hl-title"><i class="fa-solid fa-award"></i> <span id="pbLabel">JUMLAH PB (40%)</span></div>
+            <div class="hl-value" id="pbValue">0.0%</div>
+          </div>
+          <div class="highlight-card total-box">
+            <div class="hl-title"><i class="fa-solid fa-star"></i> <span id="totalLabel">TOTAL (60%)</span></div>
+            <div class="hl-value" id="totalValue">0.0%</div>
+          </div>
+        </div>
+
+        <!-- Seksyen 3: Perincian Markah PB -->
+        <div class="section-title">
+          <i class="fa-solid fa-list-check"></i> Perincian Komponen Markah
         </div>
         <div class="marks-grid" id="marksGrid">
           <!-- Diisi secara dinamik -->
         </div>
 
-        <!-- Seksyen 3: Dokumen & Laporan PDF -->
+        <!-- Seksyen 4: Dokumen & Laporan PDF -->
         <div class="section-title" id="pdfSectionTitle" style="display: none;">
           <i class="fa-solid fa-folder-open"></i> Laporan & Tugasan (PDF)
         </div>
@@ -411,6 +490,12 @@
       const pdfSection = document.getElementById('pdfSection');
       const pdfSectionTitle = document.getElementById('pdfSectionTitle');
 
+      // Element Highlight
+      const pbLabel = document.getElementById('pbLabel');
+      const pbValue = document.getElementById('pbValue');
+      const totalLabel = document.getElementById('totalLabel');
+      const totalValue = document.getElementById('totalValue');
+
       // Reset Paparan
       errorMessage.style.display = 'none';
       resultContainer.style.display = 'none';
@@ -418,6 +503,10 @@
       marksGrid.innerHTML = '';
       pdfSection.innerHTML = '';
       pdfSectionTitle.style.display = 'none';
+      
+      pbValue.innerText = '0.0%';
+      totalValue.innerText = '0.0%';
+
       loader.style.display = 'block';
 
       // Panggilan API ke Google Apps Script
@@ -434,9 +523,10 @@
               if (!key || key.trim() === "") continue;
 
               const valStr = String(value).trim();
+              const keyLower = key.toLowerCase();
               const isUrl = valStr.startsWith('http://') || valStr.startsWith('https://');
 
-              // 1. Jika data adalah LINK / URL (Laporan Assignment PDF)
+              // 1. Laporan PDF / Assignment Link
               if (isUrl) {
                 hasPdf = true;
                 const pdfCard = document.createElement('a');
@@ -453,15 +543,24 @@
                 `;
                 pdfSection.appendChild(pdfCard);
               } 
-              // 2. Jika data mengandungi perkataan Markah / % / Quiz / Test / PB
+              // 2. TANGKAP HIGHLIGHT: PB (40%) & TOTAL (60%)
+              else if (keyLower.includes('jumlah pb') || keyLower.includes('pb (40%)') || keyLower.includes('40%')) {
+                pbLabel.innerText = key;
+                pbValue.innerText = valStr !== "" ? valStr : "0.0%";
+              } 
+              else if (keyLower.includes('total') || keyLower.includes('keseluruhan') || keyLower.includes('60%')) {
+                totalLabel.innerText = key;
+                totalValue.innerText = valStr !== "" ? valStr : "0.0%";
+              }
+              // 3. Markah-markah Perincian Biasa (Quiz, Test, Assignment)
               else if (
-                key.toLowerCase().includes('markah') || 
-                key.toLowerCase().includes('quiz') || 
-                key.toLowerCase().includes('test') || 
-                key.toLowerCase().includes('pb') ||
-                key.toLowerCase().includes('assignment') ||
-                key.toLowerCase().includes('jumlah') ||
-                !isNaN(valStr) && valStr !== ""
+                keyLower.includes('markah') || 
+                keyLower.includes('quiz') || 
+                keyLower.includes('test') || 
+                keyLower.includes('pb') ||
+                keyLower.includes('assignment') ||
+                (!isNaN(valStr) && valStr !== "") ||
+                valStr.includes('%')
               ) {
                 const markCard = document.createElement('div');
                 markCard.className = 'mark-card';
@@ -471,7 +570,7 @@
                 `;
                 marksGrid.appendChild(markCard);
               } 
-              // 3. Maklumat Am Pelajar (Nama, Matrik, IC, Kelas, dll)
+              // 4. Maklumat Am Pelajar
               else {
                 const infoCard = document.createElement('div');
                 infoCard.className = 'info-card';
