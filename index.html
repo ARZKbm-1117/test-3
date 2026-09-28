@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Semakan Markah PB</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-blue: #0A369D;
+      --secondary-blue: #0056B3;
+      --accent-red: #D90429;
+      --dark-red: #9B001C;
+      --bg-gradient: linear-gradient(135deg, #0A369D 0%, #1E1B4B 100%);
+      --pure-white: #FFFFFF;
+      --off-white: #F8FAFC;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: var(--pure-white);
+      width: 100%;
+      max-width: 650px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border-top: 6px solid var(--accent-red);
+    }
+
+    .header {
+      background: var(--primary-blue);
+      color: var(--pure-white);
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      color: #CBD5E1;
+      font-weight: 300;
+    }
+
+    .search-body {
+      padding: 30px 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 14px 14px 14px 45px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--secondary-blue);
+      box-shadow: 0 0 0 4px rgba(10, 54, 157, 0.1);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-red);
+      color: var(--pure-white);
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--dark-red);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Result Box */
+    .result-container {
+      margin-top: 25px;
+      display: none;
+      border-top: 2px dashed var(--border-color);
+      padding-top: 20px;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .result-title {
+      font-size: 1.1rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    .status-badge {
+      background: #E0F2FE;
+      color: #0369A1;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .result-table th, .result-table td {
+      padding: 12px 15px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .result-table tr:nth-child(even) {
+      background-color: var(--off-white);
+    }
+
+    .result-table th {
+      background-color: var(--primary-blue);
+      color: var(--pure-white);
+      font-weight: 600;
+      width: 40%;
+    }
+
+    .result-table td {
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    /* Status Messages */
+    .message-box {
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .message-box.error {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FCA5A5;
+    }
+
+    .loader {
+      display: none;
+      margin: 20px auto;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent-red);
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer {
+      background: var(--off-white);
+      padding: 15px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1><i class="fa-solid fa-graduation-cap"></i> Semakan Markah PB</h1>
+      <p>Pentaksiran Berterusan Pelajar</p>
+    </div>
+
+    <!-- Content Body -->
+    <div class="search-body">
+      <form id="searchForm">
+        <div class="form-group">
+          <label for="noMatrik">Nombor Matrik Pelajar</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="text" id="noMatrik" placeholder="Cth: KVN123456" required autocomplete="off">
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Cari Markah
+        </button>
+      </form>
+
+      <!-- Loader -->
+      <div class="loader" id="loader"></div>
+
+      <!-- Error Message -->
+      <div class="message-box error" id="errorMessage"></div>
+
+      <!-- Results Display -->
+      <div class="result-container" id="resultContainer">
+        <div class="result-header">
+          <span class="result-title"><i class="fa-solid fa-file-lines"></i> Keputusan Semakan</span>
+          <span class="status-badge">Diperoleh</span>
+        </div>
+        <table class="result-table">
+          <tbody id="resultBody">
+            <!-- Data dari Google Sheet akan dimasukkan di sini secara dinamik -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      &copy; Hak Cipta Terpelihara - Sistem Semakan Markah PB
+    </div>
+  </div>
+
+  <script>
+    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2McDL6T1aL-mPeVO9b6k6m-tgQ5p2dj5JdU-265stIypG5Yb2FGPC_tdjEVsCfHc/exec";
+
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const noMatrik = document.getElementById('noMatrik').value.trim();
+      const loader = document.getElementById('loader');
+      const errorMessage = document.getElementById('errorMessage');
+      const resultContainer = document.getElementById('resultContainer');
+      const resultBody = document.getElementById('resultBody');
+
+      // Reset Paparan
+      errorMessage.style.display = 'none';
+      resultContainer.style.display = 'none';
+      resultBody.innerHTML = '';
+      loader.style.display = 'block';
+
+      // Panggilan API ke Google Apps Script
+      fetch(`${SCRIPT_URL}?id=${encodeURIComponent(noMatrik)}`)
+        .then(response => response.json())
+        .then(data => {
+          loader.style.display = 'none';
+
+          if (data.status === 'success') {
+            const studentData = data.data;
+            
+            // Bina jadual keputusan dinamik berdasarkan header sheet
+            for (const [key, value] of Object.entries(studentData)) {
+              if (key.trim() !== "") { // Abaikan kolum kosong
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                  <th>${key}</th>
+                  <td>${value !== "" ? value : "-"}</td>
+                `;
+                resultBody.appendChild(row);
+              }
+            }
+            
+            resultContainer.style.display = 'block';
+          } else {
+            errorMessage.innerText = data.message || 'No. Matrik tidak dijumpai dalam rekod.';
+            errorMessage.style.display = 'block';
+          }
+        })
+        .catch(error => {
+          loader.style.display = 'none';
+          errorMessage.innerText = 'Ralat sambungan ke pangkalan data. Sila cuba lagi.';
+          errorMessage.style.display = 'block';
+          console.error('Error:', error);
+        });
+    });
+  </script>
+</body>
+</html>
