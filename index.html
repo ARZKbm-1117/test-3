@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Semakan Markah PB</title>
   <!-- Google Fonts & FontAwesome Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     :root {
       --primary-blue: #0A369D;
       --secondary-blue: #0056B3;
+      --light-blue: #EFF6FF;
       --accent-red: #D90429;
       --dark-red: #9B001C;
       --bg-gradient: linear-gradient(135deg, #0A369D 0%, #1E1B4B 100%);
       --pure-white: #FFFFFF;
       --off-white: #F8FAFC;
-      --text-dark: #1E293B;
+      --text-dark: #0F172A;
       --text-muted: #64748B;
       --border-color: #E2E8F0;
     }
@@ -35,15 +36,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 30px 15px;
     }
 
     .container {
       background: var(--pure-white);
       width: 100%;
-      max-width: 650px;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      max-width: 850px; /* Diluaskan supaya tidak terlalu memanjang */
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       overflow: hidden;
       border-top: 6px solid var(--accent-red);
     }
@@ -51,27 +52,26 @@
     .header {
       background: var(--primary-blue);
       color: var(--pure-white);
-      padding: 30px 20px;
+      padding: 35px 25px;
       text-align: center;
-      position: relative;
     }
 
     .header h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       text-transform: uppercase;
     }
 
     .header p {
-      font-size: 0.9rem;
-      color: #CBD5E1;
-      font-weight: 300;
+      font-size: 0.95rem;
+      color: #93C5FD;
+      font-weight: 400;
     }
 
     .search-body {
-      padding: 30px 25px;
+      padding: 30px;
     }
 
     .form-group {
@@ -94,19 +94,21 @@
 
     .input-wrapper i {
       position: absolute;
-      left: 14px;
+      left: 16px;
       color: var(--text-muted);
       font-size: 1.1rem;
     }
 
     .input-wrapper input {
       width: 100%;
-      padding: 14px 14px 14px 45px;
+      padding: 14px 14px 14px 48px;
       border: 2px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 1rem;
       transition: all 0.3s ease;
       text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .input-wrapper input:focus {
@@ -123,106 +125,176 @@
       padding: 14px;
       font-size: 1rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.1s ease;
+      transition: all 0.2s ease;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
+      box-shadow: 0 4px 12px rgba(217, 4, 41, 0.3);
     }
 
     .btn-submit:hover {
       background: var(--dark-red);
+      transform: translateY(-1px);
     }
 
-    .btn-submit:active {
-      transform: scale(0.99);
-    }
-
-    /* Result Box */
+    /* Result Dashboard Styling */
     .result-container {
-      margin-top: 25px;
+      margin-top: 30px;
       display: none;
-      border-top: 2px dashed var(--border-color);
-      padding-top: 20px;
+      animation: fadeIn 0.4s ease-in-out;
     }
 
-    .result-header {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 1rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
+      gap: 8px;
+      border-bottom: 2px solid var(--light-blue);
+      padding-bottom: 6px;
+      text-transform: uppercase;
     }
 
-    .result-title {
-      font-size: 1.1rem;
+    /* Grid Maklumat Pelajar */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .info-card {
+      background: var(--off-white);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-card .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .info-card .val {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    /* Grid Markah PB */
+    .marks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .mark-card {
+      background: var(--pure-white);
+      border: 2px solid var(--light-blue);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .mark-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--secondary-blue);
+    }
+
+    .mark-card .mark-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .mark-card .mark-val {
+      font-size: 1.5rem;
       color: var(--primary-blue);
       font-weight: 700;
     }
 
-    .status-badge {
-      background: #E0F2FE;
-      color: #0369A1;
-      padding: 4px 12px;
-      border-radius: 20px;
+    /* Seksyen Laporan PDF */
+    .pdf-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .pdf-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--off-white);
+      border: 1px solid var(--border-color);
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .pdf-button:hover {
+      background: #FEF2F2;
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .pdf-button .pdf-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pdf-button i.pdf-icon {
+      font-size: 1.5rem;
+      color: var(--accent-red);
+    }
+
+    .pdf-button .btn-tag {
+      background: var(--accent-red);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
       font-size: 0.8rem;
       font-weight: 600;
-    }
-
-    .result-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    .result-table th, .result-table td {
-      padding: 12px 15px;
-      text-align: left;
-      font-size: 0.95rem;
-      word-break: break-word; /* Mengelakkan pautan panjang merosakkan susun atur */
-    }
-
-    .result-table tr:nth-child(even) {
-      background-color: var(--off-white);
-    }
-
-    .result-table th {
-      background-color: var(--primary-blue);
-      color: var(--pure-white);
-      font-weight: 600;
-      width: 40%;
-    }
-
-    .result-table td {
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-dark);
-      font-weight: 500;
-    }
-
-    /* Kemas kini gaya link supaya jelas & profesional */
-    .result-table td a {
-      color: var(--secondary-blue);
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .result-table td a:hover {
-      color: var(--accent-red);
-      text-decoration: underline;
+    .pdf-button:hover .btn-tag {
+      background: var(--dark-red);
     }
 
     /* Status Messages */
     .message-box {
       padding: 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.9rem;
       display: none;
       margin-top: 15px;
       text-align: center;
+      font-weight: 500;
     }
 
     .message-box.error {
@@ -237,8 +309,8 @@
       border: 4px solid #f3f3f3;
       border-top: 4px solid var(--accent-red);
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
+      width: 38px;
+      height: 38px;
       animation: spin 1s linear infinite;
     }
 
@@ -249,9 +321,9 @@
 
     .footer {
       background: var(--off-white);
-      padding: 15px;
+      padding: 18px;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border-color);
     }
@@ -263,7 +335,7 @@
     <!-- Header -->
     <div class="header">
       <h1><i class="fa-solid fa-graduation-cap"></i> Semakan Markah PB</h1>
-      <p>Pentaksiran Berterusan Pelajar</p>
+      <p>Sistem Portal Pentaksiran Berterusan Pelajar</p>
     </div>
 
     <!-- Content Body -->
@@ -273,11 +345,11 @@
           <label for="noMatrik">Nombor Matrik Pelajar</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-id-card"></i>
-            <input type="text" id="noMatrik" placeholder="Cth: KVN123456" required autocomplete="off">
+            <input type="text" id="noMatrik" placeholder="Masukkan No. Matrik (Cth: KVN123456)" required autocomplete="off">
           </div>
         </div>
         <button type="submit" class="btn-submit">
-          <i class="fa-solid fa-magnifying-glass"></i> Cari Markah
+          <i class="fa-solid fa-magnifying-glass"></i> Cari Keputusan
         </button>
       </form>
 
@@ -287,17 +359,33 @@
       <!-- Error Message -->
       <div class="message-box error" id="errorMessage"></div>
 
-      <!-- Results Display -->
+      <!-- Results Display Dashboard -->
       <div class="result-container" id="resultContainer">
-        <div class="result-header">
-          <span class="result-title"><i class="fa-solid fa-file-lines"></i> Keputusan Semakan</span>
-          <span class="status-badge">Diperoleh</span>
+        
+        <!-- Seksyen 1: Maklumat Pelajar -->
+        <div class="section-title">
+          <i class="fa-solid fa-user-graduate"></i> Maklumat Pelajar
         </div>
-        <table class="result-table">
-          <tbody id="resultBody">
-            <!-- Data dari Google Sheet akan dimasukkan di sini secara dinamik -->
-          </tbody>
-        </table>
+        <div class="info-grid" id="studentInfoGrid">
+          <!-- Diisi secara dinamik -->
+        </div>
+
+        <!-- Seksyen 2: Markah PB -->
+        <div class="section-title">
+          <i class="fa-solid fa-chart-simple"></i> Komponen Markah PB
+        </div>
+        <div class="marks-grid" id="marksGrid">
+          <!-- Diisi secara dinamik -->
+        </div>
+
+        <!-- Seksyen 3: Dokumen & Laporan PDF -->
+        <div class="section-title" id="pdfSectionTitle" style="display: none;">
+          <i class="fa-solid fa-folder-open"></i> Laporan & Tugasan (PDF)
+        </div>
+        <div class="pdf-section" id="pdfSection">
+          <!-- Diisi secara dinamik -->
+        </div>
+
       </div>
     </div>
 
@@ -308,7 +396,6 @@
   </div>
 
   <script>
-    // Dibetulkan: Menambah tanda petik ("") pada URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2McDL6T1aL-mPeVO9b6k6m-tgQ5p2dj5JdU-265stIypG5Yb2FGPC_tdjEVsCfHc/exec";
 
     document.getElementById('searchForm').addEventListener('submit', function(e) {
@@ -318,12 +405,19 @@
       const loader = document.getElementById('loader');
       const errorMessage = document.getElementById('errorMessage');
       const resultContainer = document.getElementById('resultContainer');
-      const resultBody = document.getElementById('resultBody');
+      
+      const studentInfoGrid = document.getElementById('studentInfoGrid');
+      const marksGrid = document.getElementById('marksGrid');
+      const pdfSection = document.getElementById('pdfSection');
+      const pdfSectionTitle = document.getElementById('pdfSectionTitle');
 
       // Reset Paparan
       errorMessage.style.display = 'none';
       resultContainer.style.display = 'none';
-      resultBody.innerHTML = '';
+      studentInfoGrid.innerHTML = '';
+      marksGrid.innerHTML = '';
+      pdfSection.innerHTML = '';
+      pdfSectionTitle.style.display = 'none';
       loader.style.display = 'block';
 
       // Panggilan API ke Google Apps Script
@@ -334,29 +428,65 @@
 
           if (data.status === 'success') {
             const studentData = data.data;
-            
-            // Bina jadual keputusan dinamik berdasarkan header sheet
+            let hasPdf = false;
+
             for (const [key, value] of Object.entries(studentData)) {
-              if (key.trim() !== "") { // Abaikan kolum kosong
-                const row = document.createElement('tr');
-                
-                let formattedValue = value;
+              if (!key || key.trim() === "") continue;
 
-                // Memeriksa sama ada data mengandungi pautan web (http / https)
-                if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
-                  formattedValue = `<a href="${value}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Laporan</a>`;
-                } else if (value === "") {
-                  formattedValue = "-";
-                }
+              const valStr = String(value).trim();
+              const isUrl = valStr.startsWith('http://') || valStr.startsWith('https://');
 
-                row.innerHTML = `
-                  <th>${key}</th>
-                  <td>${formattedValue}</td>
+              // 1. Jika data adalah LINK / URL (Laporan Assignment PDF)
+              if (isUrl) {
+                hasPdf = true;
+                const pdfCard = document.createElement('a');
+                pdfCard.className = 'pdf-button';
+                pdfCard.href = valStr;
+                pdfCard.target = '_blank';
+                pdfCard.rel = 'noopener noreferrer';
+                pdfCard.innerHTML = `
+                  <div class="pdf-info">
+                    <i class="fa-solid fa-file-pdf pdf-icon"></i>
+                    <span>${key}</span>
+                  </div>
+                  <span class="btn-tag"><i class="fa-solid fa-download"></i> Buka PDF</span>
                 `;
-                resultBody.appendChild(row);
+                pdfSection.appendChild(pdfCard);
+              } 
+              // 2. Jika data mengandungi perkataan Markah / % / Quiz / Test / PB
+              else if (
+                key.toLowerCase().includes('markah') || 
+                key.toLowerCase().includes('quiz') || 
+                key.toLowerCase().includes('test') || 
+                key.toLowerCase().includes('pb') ||
+                key.toLowerCase().includes('assignment') ||
+                key.toLowerCase().includes('jumlah') ||
+                !isNaN(valStr) && valStr !== ""
+              ) {
+                const markCard = document.createElement('div');
+                markCard.className = 'mark-card';
+                markCard.innerHTML = `
+                  <div class="mark-label">${key}</div>
+                  <div class="mark-val">${valStr !== "" ? valStr : "-"}</div>
+                `;
+                marksGrid.appendChild(markCard);
+              } 
+              // 3. Maklumat Am Pelajar (Nama, Matrik, IC, Kelas, dll)
+              else {
+                const infoCard = document.createElement('div');
+                infoCard.className = 'info-card';
+                infoCard.innerHTML = `
+                  <div class="label">${key}</div>
+                  <div class="val">${valStr !== "" ? valStr : "-"}</div>
+                `;
+                studentInfoGrid.appendChild(infoCard);
               }
             }
-            
+
+            if (hasPdf) {
+              pdfSectionTitle.style.display = 'flex';
+            }
+
             resultContainer.style.display = 'block';
           } else {
             errorMessage.innerText = data.message || 'No. Matrik tidak dijumpai dalam rekod.';
