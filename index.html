@@ -42,7 +42,7 @@
     .container {
       background: var(--pure-white);
       width: 100%;
-      max-width: 900px;
+      max-width: 850px;
       border-radius: 20px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       overflow: hidden;
@@ -153,10 +153,10 @@
     }
 
     .section-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--primary-blue);
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -168,7 +168,7 @@
     /* Grid Maklumat Pelajar */
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
       margin-bottom: 25px;
     }
@@ -194,93 +194,104 @@
       font-weight: 600;
     }
 
-    /* KOTAK JUMLAH PB (40%) & TOTAL (60%) - SANGAT MENONJOL */
-    .highlight-summary-grid {
+    /* --- REKA BENTUK KOTAK HIGHLIGHT PB & TOTAL --- */
+    .highlight-marks-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 16px;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .highlight-card {
-      padding: 20px;
+      padding: 22px 20px;
       border-radius: 16px;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .highlight-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     }
 
-    /* Kotak PB 40% */
-    .highlight-card.pb-card {
-      background: linear-gradient(135deg, #0A369D 0%, #1557A6 100%);
-      color: white;
-      border: 2px solid #2563EB;
+    /* Kotak PB (40%) - Biru */
+    .highlight-card.pb-box {
+      background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 100%);
+      border-color: #BFDBFE;
     }
 
-    /* Kotak Total 60% */
-    .highlight-card.total-card {
-      background: linear-gradient(135deg, #D90429 0%, #9B001C 100%);
-      color: white;
-      border: 2px solid #EF4444;
+    .highlight-card.pb-box .hl-title {
+      color: var(--primary-blue);
     }
 
-    .highlight-card .h-label {
+    .highlight-card.pb-box .hl-value {
+      color: var(--primary-blue);
+    }
+
+    /* Kotak TOTAL (60%) - Merah */
+    .highlight-card.total-box {
+      background: linear-gradient(145deg, #FFF1F2 0%, #FFE4E6 100%);
+      border-color: #FECDD3;
+    }
+
+    .highlight-card.total-box .hl-title {
+      color: var(--accent-red);
+    }
+
+    .highlight-card.total-box .hl-value {
+      color: var(--accent-red);
+    }
+
+    .hl-title {
       font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      opacity: 0.9;
-      margin-bottom: 6px;
-    }
-
-    .highlight-card .h-val {
-      font-size: 2.2rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    /* GRID MARKAH COMPONENTS (UPS 1, 2, 3 & Summative) Dalam 1 Baris */
+    .hl-value {
+      font-size: 2.3rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    /* Grid Markah Perincian Biasa */
     .marks-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* Maksimum 4 lajur sebaris */
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
       margin-bottom: 25px;
     }
 
     .mark-card {
       background: var(--pure-white);
-      border: 2px solid var(--light-blue);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px 10px;
+      padding: 14px;
       text-align: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
-    }
-
-    .mark-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--secondary-blue);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
     }
 
     .mark-card .mark-label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
 
     .mark-card .mark-val {
-      font-size: 1.3rem;
-      color: var(--primary-blue);
-      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      font-weight: 700;
     }
 
     /* Seksyen Laporan PDF */
@@ -380,16 +391,6 @@
       color: var(--text-muted);
       border-top: 1px solid var(--border-color);
     }
-
-    /* Responsif untuk paparan telefon bimbit */
-    @media (max-width: 650px) {
-      .highlight-summary-grid {
-        grid-template-columns: 1fr;
-      }
-      .marks-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2x2 jika dibuka di telefon */
-      }
-    }
   </style>
 </head>
 <body>
@@ -433,21 +434,24 @@
           <!-- Diisi secara dinamik -->
         </div>
 
-        <!-- Seksyen 2: KOTAK HIGHLIGHT RINGKASAN PB (PB 40% & TOTAL 60%) -->
-        <div class="highlight-summary-grid">
-          <div class="highlight-card pb-card">
-            <div class="h-label" id="pbTitle">JUMLAH PB (40%)</div>
-            <div class="h-val" id="pbValue">0.0%</div>
+        <!-- Seksyen 2: Highlight Markah Utama (PB 40% & TOTAL 60%) -->
+        <div class="section-title">
+          <i class="fa-solid fa-trophy"></i> Ringkasan Keputusan Utama
+        </div>
+        <div class="highlight-marks-grid">
+          <div class="highlight-card pb-box">
+            <div class="hl-title"><i class="fa-solid fa-award"></i> <span id="pbLabel">JUMLAH PB (40%)</span></div>
+            <div class="hl-value" id="pbValue">0.0%</div>
           </div>
-          <div class="highlight-card total-card">
-            <div class="h-label" id="totalTitle">TOTAL KESELURUHAN (60%)</div>
-            <div class="h-val" id="totalValue">0.0%</div>
+          <div class="highlight-card total-box">
+            <div class="hl-title"><i class="fa-solid fa-star"></i> <span id="totalLabel">TOTAL (60%)</span></div>
+            <div class="hl-value" id="totalValue">0.0%</div>
           </div>
         </div>
 
-        <!-- Seksyen 3: Komponen Markah (UPS 1, 2, 3 & Summative) -->
+        <!-- Seksyen 3: Perincian Markah PB -->
         <div class="section-title">
-          <i class="fa-solid fa-chart-simple"></i> Perincian Pentaksiran
+          <i class="fa-solid fa-list-check"></i> Perincian Komponen Markah
         </div>
         <div class="marks-grid" id="marksGrid">
           <!-- Diisi secara dinamik -->
@@ -486,6 +490,12 @@
       const pdfSection = document.getElementById('pdfSection');
       const pdfSectionTitle = document.getElementById('pdfSectionTitle');
 
+      // Element Highlight
+      const pbLabel = document.getElementById('pbLabel');
+      const pbValue = document.getElementById('pbValue');
+      const totalLabel = document.getElementById('totalLabel');
+      const totalValue = document.getElementById('totalValue');
+
       // Reset Paparan
       errorMessage.style.display = 'none';
       resultContainer.style.display = 'none';
@@ -493,6 +503,10 @@
       marksGrid.innerHTML = '';
       pdfSection.innerHTML = '';
       pdfSectionTitle.style.display = 'none';
+      
+      pbValue.innerText = '0.0%';
+      totalValue.innerText = '0.0%';
+
       loader.style.display = 'block';
 
       // Panggilan API ke Google Apps Script
@@ -512,7 +526,7 @@
               const keyLower = key.toLowerCase();
               const isUrl = valStr.startsWith('http://') || valStr.startsWith('https://');
 
-              // 1. Jika data adalah LINK / URL (Laporan Assignment PDF)
+              // 1. Laporan PDF / Assignment Link
               if (isUrl) {
                 hasPdf = true;
                 const pdfCard = document.createElement('a');
@@ -529,23 +543,24 @@
                 `;
                 pdfSection.appendChild(pdfCard);
               } 
-              // 2. Jika data adalah JUMLAH PB (40%) atau TOTAL (60%) -> Masukkan ke Kotak Highlight Utama
-              else if (keyLower.includes('jumlah pb') || keyLower.includes('pb (40%)')) {
-                document.getElementById('pbTitle').innerText = key;
-                document.getElementById('pbValue').innerText = valStr !== "" ? valStr : "0.0%";
+              // 2. TANGKAP HIGHLIGHT: PB (40%) & TOTAL (60%)
+              else if (keyLower.includes('jumlah pb') || keyLower.includes('pb (40%)') || keyLower.includes('40%')) {
+                pbLabel.innerText = key;
+                pbValue.innerText = valStr !== "" ? valStr : "0.0%";
+              } 
+              else if (keyLower.includes('total') || keyLower.includes('keseluruhan') || keyLower.includes('60%')) {
+                totalLabel.innerText = key;
+                totalValue.innerText = valStr !== "" ? valStr : "0.0%";
               }
-              else if (keyLower.includes('total') || keyLower.includes('60%') || keyLower.includes('keseluruhan')) {
-                document.getElementById('totalTitle').innerText = key;
-                document.getElementById('totalValue').innerText = valStr !== "" ? valStr : "0.0%";
-              }
-              // 3. Komponen Markah Lain (UPS 1, 2, 3, Summative Assessment, dll)
+              // 3. Markah-markah Perincian Biasa (Quiz, Test, Assignment)
               else if (
-                keyLower.includes('ups') || 
-                keyLower.includes('summative') || 
+                keyLower.includes('markah') || 
                 keyLower.includes('quiz') || 
                 keyLower.includes('test') || 
-                keyLower.includes('markah') ||
-                keyLower.includes('assignment')
+                keyLower.includes('pb') ||
+                keyLower.includes('assignment') ||
+                (!isNaN(valStr) && valStr !== "") ||
+                valStr.includes('%')
               ) {
                 const markCard = document.createElement('div');
                 markCard.className = 'mark-card';
@@ -555,7 +570,7 @@
                 `;
                 marksGrid.appendChild(markCard);
               } 
-              // 4. Maklumat Am Pelajar (Nama, Matrik, IC, Kelas, dll)
+              // 4. Maklumat Am Pelajar
               else {
                 const infoCard = document.createElement('div');
                 infoCard.className = 'info-card';
