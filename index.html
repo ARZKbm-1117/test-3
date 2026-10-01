@@ -153,10 +153,10 @@
     }
 
     .section-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--primary-blue);
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -165,12 +165,56 @@
       text-transform: uppercase;
     }
 
+    /* --- LAYOUT MAKLUAMAT PELAJAR DENGAN GAMBAR --- */
+    .student-profile-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 25px;
+    }
+
+    .student-photo-card {
+      flex: 0 0 140px;
+      height: 180px;
+      background: var(--off-white);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .student-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .student-photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      gap: 6px;
+    }
+
+    .student-photo-placeholder i {
+      font-size: 2.5rem;
+      color: #CBD5E1;
+    }
+
     /* Grid Maklumat Pelajar */
     .info-grid {
+      flex: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 12px;
-      margin-bottom: 25px;
     }
 
     .info-card {
@@ -178,6 +222,9 @@
       padding: 12px 16px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .info-card .label {
@@ -194,101 +241,108 @@
       font-weight: 600;
     }
 
-    /* --- REKA BENTUK KOTAK HIGHLIGHT PB & TOTAL --- */
-    .highlight-marks-grid {
+    /* Responsif untuk skrin kecil (Telefon) */
+    @media (max-width: 576px) {
+      .student-profile-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .student-photo-card {
+        width: 130px;
+        height: 150px;
+      }
+      .info-grid {
+        width: 100%;
+      }
+    }
+
+    /* --- BAHAGIAN MARKAH KASAR & TOTAL --- */
+    .highlight-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-bottom: 30px;
-    }
-
-    .highlight-card {
-      padding: 22px 20px;
-      border-radius: 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      border: 2px solid transparent;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .highlight-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    /* Kotak PB (40%) - Biru */
-    .highlight-card.pb-box {
-      background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 100%);
-      border-color: #BFDBFE;
-    }
-
-    .highlight-card.pb-box .hl-title {
-      color: var(--primary-blue);
-    }
-
-    .highlight-card.pb-box .hl-value {
-      color: var(--primary-blue);
-    }
-
-    /* Kotak TOTAL (60%) - Merah */
-    .highlight-card.total-box {
-      background: linear-gradient(145deg, #FFF1F2 0%, #FFE4E6 100%);
-      border-color: #FECDD3;
-    }
-
-    .highlight-card.total-box .hl-title {
-      color: var(--accent-red);
-    }
-
-    .highlight-card.total-box .hl-value {
-      color: var(--accent-red);
-    }
-
-    .hl-title {
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .hl-value {
-      font-size: 2.3rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-
-    /* Grid Markah Perincian Biasa */
-    .marks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
       margin-bottom: 25px;
     }
 
-    .mark-card {
-      background: var(--pure-white);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 14px;
+    .highlight-card {
+      padding: 20px;
+      border-radius: 14px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+      color: white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .mark-card .mark-label {
-      font-size: 0.78rem;
+    .highlight-card.pb {
+      background: linear-gradient(135deg, #0A369D 0%, #1D4ED8 100%);
+    }
+
+    .highlight-card.total {
+      background: linear-gradient(135deg, #D90429 0%, #9B001C 100%);
+    }
+
+    .highlight-card .hl-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .highlight-card .hl-val {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    /* --- BAHAGIAN BARISAN KOTAK KOMPONEN --- */
+    .component-box {
+      background: var(--off-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .component-box .box-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .mini-card {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .mini-card .mini-label {
+      font-size: 0.75rem;
       color: var(--text-muted);
       font-weight: 600;
       margin-bottom: 6px;
     }
 
-    .mark-card .mark-val {
+    .mini-card .mini-val {
       font-size: 1.25rem;
       color: var(--text-dark);
       font-weight: 700;
@@ -426,35 +480,73 @@
       <!-- Results Display Dashboard -->
       <div class="result-container" id="resultContainer">
         
-        <!-- Seksyen 1: Maklumat Pelajar -->
+        <!-- Seksyen 1: Maklumat Pelajar (Dengan Gambar) -->
         <div class="section-title">
           <i class="fa-solid fa-user-graduate"></i> Maklumat Pelajar
         </div>
-        <div class="info-grid" id="studentInfoGrid">
-          <!-- Diisi secara dinamik -->
-        </div>
-
-        <!-- Seksyen 2: Highlight Markah Utama (PB 40% & TOTAL 60%) -->
-        <div class="section-title">
-          <i class="fa-solid fa-trophy"></i> Ringkasan Keputusan Utama
-        </div>
-        <div class="highlight-marks-grid">
-          <div class="highlight-card pb-box">
-            <div class="hl-title"><i class="fa-solid fa-award"></i> <span id="pbLabel">JUMLAH PB (40%)</span></div>
-            <div class="hl-value" id="pbValue">0.0%</div>
+        
+        <div class="student-profile-wrapper">
+          <!-- Kad Segi Empat Gambar Pelajar -->
+          <div class="student-photo-card" id="studentPhotoCard">
+            <div class="student-photo-placeholder">
+              <i class="fa-solid fa-user"></i>
+              <span>Tiada Gambar</span>
+            </div>
           </div>
-          <div class="highlight-card total-box">
-            <div class="hl-title"><i class="fa-solid fa-star"></i> <span id="totalLabel">TOTAL (60%)</span></div>
-            <div class="hl-value" id="totalValue">0.0%</div>
+
+          <!-- Grid Butiran Maklumat -->
+          <div class="info-grid" id="studentInfoGrid">
+            <!-- Diisi secara dinamik -->
           </div>
         </div>
 
-        <!-- Seksyen 3: Perincian Markah PB -->
+        <!-- Seksyen 2: Markah Utama Menonjol (PB & Total) -->
+        <div class="highlight-grid">
+          <div class="highlight-card pb">
+            <div class="hl-label" id="labelPB">Jumlah PB (40%)</div>
+            <div class="hl-val" id="valPB">-</div>
+          </div>
+          <div class="highlight-card total">
+            <div class="hl-label" id="labelTotal">Jumlah Keseluruhan (60%)</div>
+            <div class="hl-val" id="valTotal">-</div>
+          </div>
+        </div>
+
+        <!-- Seksyen 3: Komponen Markah mengikut Baris -->
         <div class="section-title">
           <i class="fa-solid fa-list-check"></i> Perincian Komponen Markah
         </div>
-        <div class="marks-grid" id="marksGrid">
-          <!-- Diisi secara dinamik -->
+
+        <!-- UPS 1, 2, 3 & Summative Assessment -->
+        <div class="component-box">
+          <div class="box-title"><i class="fa-solid fa-file-pen"></i> Ujian & Pentaksiran Sumatif</div>
+          <div class="box-grid" id="boxRow1">
+            <!-- Diisi dinamik -->
+          </div>
+        </div>
+
+        <!-- Individual Assignment, Percent (15%), Numeracy Skill, Percent (5%) -->
+        <div class="component-box">
+          <div class="box-title"><i class="fa-solid fa-user-gear"></i> Tugasan Individu & Kemahiran Numerasi</div>
+          <div class="box-grid" id="boxRow2">
+            <!-- Diisi dinamik -->
+          </div>
+        </div>
+
+        <!-- Group Assignment (50M) & Percent (20%) -->
+        <div class="component-box">
+          <div class="box-title"><i class="fa-solid fa-users"></i> Tugasan Kumpulan</div>
+          <div class="box-grid" id="boxRow3">
+            <!-- Diisi dinamik -->
+          </div>
+        </div>
+
+        <!-- KOTAK: Status Hantaran Tutor -->
+        <div class="component-box" id="tutorialBoxContainer" style="display: none;">
+          <div class="box-title"><i class="fa-solid fa-book-bookmark"></i> Status Hantaran Tutor</div>
+          <div class="box-grid" id="boxTutorial">
+            <!-- Diisi dinamik -->
+          </div>
         </div>
 
         <!-- Seksyen 4: Dokumen & Laporan PDF -->
@@ -475,7 +567,34 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2McDL6T1aL-mPeVO9b6k6m-tgQ5p2dj5JdU-265stIypG5Yb2FGPC_tdjEVsCfHc/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx6Sz9n2sfmmCwDM1S9PUEMyicgEaVcnaOPF1OzU5iXvSt6IqaLtRmvAwlqTX4g_jaC/exec";
+
+    // Fungsi Pembantu: Mengubah URL pautan Google Drive kepada Direct Image Link
+    function formatImageUrl(url) {
+      if (!url) return "";
+      let formattedUrl = url.trim();
+      
+      // Mengesan URL Google Drive
+      if (formattedUrl.includes("drive.google.com")) {
+        const matches = formattedUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) || formattedUrl.match(/id=([a-zA-Z0-9_-]+)/);
+        if (matches && matches[1]) {
+          return `https://drive.google.com/thumbnail?id=${matches[1]}&sz=w500`;
+        }
+      }
+      return formattedUrl;
+    }
+
+    // Fungsi Pembantu: Format nombor kepada 1 titik perpuluhan jika ia adalah nombor
+    function formatNumber(val) {
+      if (val === "" || val === null || val === undefined) return "-";
+      const num = Number(val);
+      // Semak sama ada nilai ini nombor sah dan bukan string biasa (seperti nama/matrik)
+      if (!isNaN(num) && typeof val !== 'boolean') {
+        // Format ke 1 titik perpuluhan (contoh: 59.30000 -> 59.3)
+        return (Math.round(num * 10) / 10).toFixed(1);
+      }
+      return val;
+    }
 
     document.getElementById('searchForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -486,27 +605,34 @@
       const resultContainer = document.getElementById('resultContainer');
       
       const studentInfoGrid = document.getElementById('studentInfoGrid');
-      const marksGrid = document.getElementById('marksGrid');
+      const studentPhotoCard = document.getElementById('studentPhotoCard');
+      const boxRow1 = document.getElementById('boxRow1');
+      const boxRow2 = document.getElementById('boxRow2');
+      const boxRow3 = document.getElementById('boxRow3');
+      const boxTutorial = document.getElementById('boxTutorial');
+      const tutorialBoxContainer = document.getElementById('tutorialBoxContainer');
       const pdfSection = document.getElementById('pdfSection');
       const pdfSectionTitle = document.getElementById('pdfSectionTitle');
-
-      // Element Highlight
-      const pbLabel = document.getElementById('pbLabel');
-      const pbValue = document.getElementById('pbValue');
-      const totalLabel = document.getElementById('totalLabel');
-      const totalValue = document.getElementById('totalValue');
 
       // Reset Paparan
       errorMessage.style.display = 'none';
       resultContainer.style.display = 'none';
       studentInfoGrid.innerHTML = '';
-      marksGrid.innerHTML = '';
+      studentPhotoCard.innerHTML = `
+        <div class="student-photo-placeholder">
+          <i class="fa-solid fa-user"></i>
+          <span>Tiada Gambar</span>
+        </div>`;
+      boxRow1.innerHTML = '';
+      boxRow2.innerHTML = '';
+      boxRow3.innerHTML = '';
+      boxTutorial.innerHTML = '';
+      tutorialBoxContainer.style.display = 'none';
       pdfSection.innerHTML = '';
       pdfSectionTitle.style.display = 'none';
       
-      pbValue.innerText = '0.0%';
-      totalValue.innerText = '0.0%';
-
+      document.getElementById('valPB').innerText = '-';
+      document.getElementById('valTotal').innerText = '-';
       loader.style.display = 'block';
 
       // Panggilan API ke Google Apps Script
@@ -518,6 +644,7 @@
           if (data.status === 'success') {
             const studentData = data.data;
             let hasPdf = false;
+            let hasTutorial = false;
 
             for (const [key, value] of Object.entries(studentData)) {
               if (!key || key.trim() === "") continue;
@@ -526,8 +653,29 @@
               const keyLower = key.toLowerCase();
               const isUrl = valStr.startsWith('http://') || valStr.startsWith('https://');
 
-              // 1. Laporan PDF / Assignment Link
-              if (isUrl) {
+              // Padanan Lajur Gambar
+              const isImageCol = keyLower.includes('gambar') || keyLower.includes('foto') || keyLower.includes('picture') || keyLower.includes('photo') || keyLower.includes('image');
+
+              // Padanan Lajur Tutorial / Status Hantaran
+              const isStatusHantaran = keyLower.includes('status hantaran') || keyLower.includes('tutor') || keyLower.includes('tutorial');
+              const isC2  = /(^|[\s_\-\/\.])c2([\s_\-\/\.]|$)/i.test(key);
+              const isC5  = /(^|[\s_\-\/\.])c5([\s_\-\/\.]|$)/i.test(key);
+              const isC8  = /(^|[\s_\-\/\.])c8([\s_\-\/\.]|$)/i.test(key);
+              const isC9  = /(^|[\s_\-\/\.])c9([\s_\-\/\.]|$)/i.test(key);
+              const isC10 = /(^|[\s_\-\/\.])c10([\s_\-\/\.]|$)/i.test(key);
+
+              // 1. Lajur Gambar (GAMBAR) -> Paparkan dalam kad foto
+              if (isImageCol && valStr !== "") {
+                const imageUrl = formatImageUrl(valStr);
+                studentPhotoCard.innerHTML = `<img src="${imageUrl}" alt="Foto Pelajar" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'student-photo-placeholder\'><i class=\'fa-solid fa-user-slash\'></i><span>Gambar Ralat</span></div>';">`;
+              }
+              // 2. Status Hantaran Tutor / C2, C5, C8, C9, C10
+              else if (isStatusHantaran || isC2 || isC5 || isC8 || isC9 || isC10) {
+                hasTutorial = true;
+                appendMiniCard(boxTutorial, key, valStr);
+              }
+              // 3. Dokumen / Laporan PDF (Pautan luar bukan gambar)
+              else if (isUrl && !isImageCol) {
                 hasPdf = true;
                 const pdfCard = document.createElement('a');
                 pdfCard.className = 'pdf-button';
@@ -543,34 +691,28 @@
                 `;
                 pdfSection.appendChild(pdfCard);
               } 
-              // 2. TANGKAP HIGHLIGHT: PB (40%) & TOTAL (60%)
-              else if (keyLower.includes('jumlah pb') || keyLower.includes('pb (40%)') || keyLower.includes('40%')) {
-                pbLabel.innerText = key;
-                pbValue.innerText = valStr !== "" ? valStr : "0.0%";
+              // 4. Markah PB (40%) dan Total (60%)
+              else if (keyLower.includes('pb') && (keyLower.includes('40') || keyLower.includes('jumlah pb'))) {
+                document.getElementById('labelPB').innerText = key;
+                document.getElementById('valPB').innerText = formatNumber(valStr);
               } 
-              else if (keyLower.includes('total') || keyLower.includes('keseluruhan') || keyLower.includes('60%')) {
-                totalLabel.innerText = key;
-                totalValue.innerText = valStr !== "" ? valStr : "0.0%";
+              else if (keyLower.includes('total') || keyLower.includes('60%') || keyLower.includes('keseluruhan')) {
+                document.getElementById('labelTotal').innerText = key;
+                document.getElementById('valTotal').innerText = formatNumber(valStr);
               }
-              // 3. Markah-markah Perincian Biasa (Quiz, Test, Assignment)
-              else if (
-                keyLower.includes('markah') || 
-                keyLower.includes('quiz') || 
-                keyLower.includes('test') || 
-                keyLower.includes('pb') ||
-                keyLower.includes('assignment') ||
-                (!isNaN(valStr) && valStr !== "") ||
-                valStr.includes('%')
-              ) {
-                const markCard = document.createElement('div');
-                markCard.className = 'mark-card';
-                markCard.innerHTML = `
-                  <div class="mark-label">${key}</div>
-                  <div class="mark-val">${valStr !== "" ? valStr : "-"}</div>
-                `;
-                marksGrid.appendChild(markCard);
-              } 
-              // 4. Maklumat Am Pelajar
+              // 5. BARIS 1: UPS & Summative Assessment
+              else if (keyLower.includes('ups') || keyLower.includes('sumative') || keyLower.includes('summative')) {
+                appendMiniCard(boxRow1, key, valStr);
+              }
+              // 6. BARIS 2: Individual Assignment & Numeracy Skill
+              else if (keyLower.includes('individual') || keyLower.includes('numeracy') || keyLower.includes('15%') || keyLower.includes('5%')) {
+                appendMiniCard(boxRow2, key, valStr);
+              }
+              // 7. BARIS 3: Group Assignment
+              else if (keyLower.includes('group') || keyLower.includes('20%')) {
+                appendMiniCard(boxRow3, key, valStr);
+              }
+              // 8. Maklumat Pelajar (Nama, Matrik, Kelas, dll.)
               else {
                 const infoCard = document.createElement('div');
                 infoCard.className = 'info-card';
@@ -580,6 +722,10 @@
                 `;
                 studentInfoGrid.appendChild(infoCard);
               }
+            }
+
+            if (hasTutorial) {
+              tutorialBoxContainer.style.display = 'block';
             }
 
             if (hasPdf) {
@@ -599,6 +745,17 @@
           console.error('Error:', error);
         });
     });
+
+    // Helper untuk menjana Kad Kecil dalam Baris Komponen
+    function appendMiniCard(container, title, value) {
+      const card = document.createElement('div');
+      card.className = 'mini-card';
+      card.innerHTML = `
+        <div class="mini-label">${title}</div>
+        <div class="mini-val">${formatNumber(value)}</div>
+      `;
+      container.appendChild(card);
+    }
   </script>
 </body>
 </html>
